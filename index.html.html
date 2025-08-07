@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>José Carlos Serrano Ruiz · CV</title>
+<meta name="description" content="Currículum de José Carlos Serrano Ruiz — Administración, RR. HH. y Soporte Técnico" />
+<style>
+  /* ===== Diseño base (tema oscuro elegante) ===== */
+  :root{
+    --bg: #0c0f1a;           /* fondo */
+    --surface: #111628;      /* tarjetas */
+    --surface-2:#0e1324;     /* header/nav */
+    --text:#ecf1f7;          /* texto principal */
+    --muted:#9fb0c6;         /* texto secundario */
+    --line:#1e2a44;          /* líneas sutiles */
+    --primary:#5bd2c7;       /* acento 1 */
+    --primary-2:#7aa2f7;     /* acento 2 */
+    --chip:#163a37;          /* fondo chips */
+    --shadow: 0 20px 60px rgba(3,10,28,.4);
+  }
+  @media print{
+    :root{ --bg:#fff; --surface:#fff; --surface-2:#fff; --text:#111827; --muted:#6b7280; --line:#e5e7eb; --primary:#0ea5e9; --primary-2:#111827; --chip:#e0f2fe; --shadow:none; }
+    .nav, .toolbar, .cta-wrap { display:none !important; }
+    body{ padding:0; }
+    a[href^="http"]::after{ content:" (" attr(href) ")"; color:var(--muted); font-weight:normal; }
+    .container{ box-shadow:none !important; }
+  }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+    background:
+      radial-gradient(1200px 700px at 0% -10%, #131b39 0%, transparent 50%),
+      radial-gradient(1000px 600px at 100% 0%, #0b122b 0%, transparent 52%),
+      var(--bg);
+    color:var(--text);
+  }
+  a{ color:var(--text); text-decoration:none; }
+  a:hover{ color:var(--primary); }
+
+  /* ===== Navegación fija ===== */
+  .nav{ position:sticky; top:0; z-index:50; backdrop-filter:saturate(110%) blur(8px); background:linear-gradient(180deg, rgba(17,22,40,.85), rgba(17,22,40,.55)); border-bottom:1px solid rgba(255,255,255,.06); }
+  .nav-inner{ max-width:1040px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; }
+  .brand{ display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px; }
+  .brand .logo{ width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg, var(--primary), var(--primary-2)); display:grid; place-items:center; color:#06221c; font-weight:900; }
+  .menu{ display:flex; gap:18px; font-weight:700; font-size:14px; color:var(--muted); }
+  .menu a{ padding:8px 10px; border-radius:8px; }
+  .menu a:hover{ background:rgba(122,162,247,.08); color:var(--text); }
+
+  /* ===== Contenedor principal ===== */
+  .container{ max-width:1040px; margin:28px auto; padding:0 18px; display:grid; grid-template-columns: 320px 1fr; gap:24px; }
+  .card{ background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:20px; box-shadow:var(--shadow); }
+  .left{ padding:22px; height:fit-content; position:sticky; top:82px; }
+  .right{ display:grid; gap:24px; }
+
+  /* ===== Perfil ===== */
+  .hero{ display:flex; gap:18px; align-items:center; }
+  .photo{ width:116px; height:116px; border-radius:18px; object-fit:cover; box-shadow:0 12px 30px rgba(2,8,23,.6); border:1px solid rgba(255,255,255,.12); background:#0a0f1f; }
+  .title{ margin:0; font-size:28px; font-weight:900; letter-spacing:.2px; }
+  .subtitle{ margin:4px 0 0; color:var(--muted); font-weight:700; }
+  .chips{ margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ padding:6px 10px; border-radius:999px; background:linear-gradient(180deg, rgba(91,210,199,.12), rgba(91,210,199,.08)); border:1px solid rgba(91,210,199,.35); color:var(--primary); font-weight:800; font-size:12px; letter-spacing:.2px; }
+
+  .sep{ height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent); margin:16px 0; }
+
+  /* ===== Bloques laterales ===== */
+  .section{ padding:18px 20px; }
+  .section h3{ margin:0 0 14px; color:var(--primary); text-transform:uppercase; font-size:13px; letter-spacing:.14em; }
+  .kv{ display:grid; grid-template-columns: 22px 1fr; gap:10px; align-items:start; margin:10px 0; color:var(--text); }
+  .muted{ color:var(--muted); }
+  ul.clean{ list-style:none; padding:0; margin:0; }
+
+  /* ===== Contenido principal ===== */
+  .block{ padding:22px; }
+  .block h2{ margin:0 0 10px; font-size:18px; letter-spacing:.12em; text-transform:uppercase; color:var(--primary); }
+  .item{ padding:14px 0; display:grid; gap:6px; border-top:1px solid rgba(255,255,255,.06); }
+  .item:first-child{ border-top:none; }
+  .item h4{ margin:0; font-size:18px; font-weight:800; }
+  .meta{ color:var(--muted); font-weight:700; font-size:14px; }
+  .bullets{ margin:6px 0 0 0; padding-left:18px; }
+  .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap:14px 24px; }
+  .skills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .skill{ padding:8px 10px; border-radius:10px; background:rgba(122,162,247,.1); border:1px solid rgba(122,162,247,.35); font-weight:700; }
+
+  /* ===== CTA / herramientas ===== */
+  .toolbar{ position:fixed; right:22px; bottom:22px; display:flex; gap:10px; z-index:100; }
+  .btn{ padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.05); color:var(--text); cursor:pointer; font-weight:800; }
+  .btn:hover{ border-color:rgba(255,255,255,.28); }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px){
+    .container{ grid-template-columns: 1fr; }
+    .left{ position:static; }
+  }
+</style>
+</head>
+<body>
+  <!-- Navegación -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand"><div class="logo">JC</div> <span>José Carlos · CV</span></div>
+      <div class="menu">
+        <a href="#perfil">Perfil</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#formacion">Formación</a>
+        <a href="#competencias">Competencias</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Columna izquierda -->
+    <aside class="left card" id="perfil">
+      <div class="hero">
+        <img class="photo" src="Captura de pantalla 2025-08-08 004808.png" alt="Foto de José Carlos Serrano Ruiz" />
+        <div>
+          <h1 class="title">José Carlos Serrano Ruiz</h1>
+          <p class="subtitle">Administración & RR. HH. · Soporte técnico</p>
+          <div class="chips">
+            <span class="chip">RR. HH.</span>
+            <span class="chip">Administración</span>
+            <span class="chip">Soporte Windows</span>
+            <span class="chip">Formación</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sep"></div>
+
+      <section class="section" id="contacto">
+        <h3>Contacto</h3>
+        <div class="kv">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 10.5C21 16 12 22 12 22S3 16 3 10.5C3 6.36 6.36 3 10.5 3c1.99 0 3.79.81 5.08 2.12A7.17 7.17 0 0 1 18 10.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div>Dúdar, Granada · 18192 · Calle El Pinar, 70</div>
+        </div>
+        <div class="kv">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="1.6"/><rect x="2" y="6" width="20" height="12" rx="2" ry="2" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+          <div><a href="mailto:jcser.ruiz@gmail.com">jcser.ruiz@gmail.com</a></div>
+        </div>
+        <div class="kv">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4h20v16H2z" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M7 19v-3h10v3M8 7h8M8 10h8" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div>600 652 657</div>
+        </div>
+        <div class="kv">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10M7 12h6M7 17h10" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+          <div>Fecha de nacimiento: 09·08·1988</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h3>Perfil</h3>
+        <p class="muted">Profesional de Administración y Recursos Humanos con experiencia en coordinación de equipos, cumplimiento normativo y gestión documental. Trayectoria previa en soporte técnico (Windows, redes, periféricos) y atención al público. Enfoque en eficiencia de procesos, formación interna y mejora continua.</p>
+      </section>
+
+      <section class="section">
+        <h3>Idiomas</h3>
+        <ul class="clean">
+          <li><strong>Inglés:</strong> hablado con fluidez; escrito y comprensión: avanzado</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h3>Otros</h3>
+        <ul class="clean">
+          <li>Fotógrafo colaborador (microstock y macrostock)</li>
+          <li>Carnet de conducir y vehículo propio</li>
+          <li>Disponibilidad horaria y geográfica</li>
+        </ul>
+      </section>
+    </aside>
+
+    <!-- Columna derecha -->
+    <section class="right">
+      <section class="card block" id="experiencia">
+        <h2>Experiencia profesional</h2>
+        <article class="item">
+          <h4>Responsable de Administración y Recursos Humanos · <em>McDonald’s</em></h4>
+          <div class="meta">Granada · Abr 2024 – Actualidad · Responsable de seis sociedades</div>
+          <ul class="bullets">
+            <li>Supervisión de procesos administrativos: contabilidad básica, facturación y control de gastos operativos y pagos a proveedores.</li>
+            <li>Cumplimiento legal y fiscal: impuestos, contratos y documentación laboral.</li>
+            <li>Reclutamiento y selección, planes de formación y desarrollo.</li>
+            <li>Gestión de nóminas y beneficios: vacaciones, permisos y reconocimientos.</li>
+            <li>Mediación en conflictos laborales y relaciones sindicales.</li>
+            <li>Seguridad y salud laboral; control de altas, modificaciones y liquidaciones.</li>
+          </ul>
+        </article>
+
+        <article class="item">
+          <h4>Técnico de soporte «GESAD» · <em>Grupo Trevenque</em></h4>
+          <div class="meta">Granada · Feb 2019 – Abr 2024</div>
+          <ul class="bullets">
+            <li>Resolución de incidencias técnicas y funcionales mediante control remoto (TeamViewer, VNC, Webex).</li>
+            <li>Diagnóstico y reporte de fallos al equipo de desarrollo.</li>
+            <li>Soporte de red y configuración de impresoras en entornos Windows.</li>
+            <li>Elaboración de manuales técnicos y material técnico‑comercial.</li>
+            <li>Demostraciones de producto y formación a clientes (GESAD).</li>
+          </ul>
+        </article>
+
+        <article class="item">
+          <h4>Operador de cámara · <em>Winet Media</em></h4>
+          <div class="meta">May 2018 – Feb 2019</div>
+        </article>
+
+        <article class="item">
+          <h4>Técnico de Inclusión Social · <em>Ayto. La Zubia</em></h4>
+          <div class="meta">La Zubia (Granada) · Jun 2018 – Dic 2018</div>
+          <ul class="bullets">
+            <li>Atención directa en Oficina Municipal de Vivienda, tramitación de prestaciones y coordinación con Servicios Sociales.</li>
+            <li>Seguimiento de casos y visitas domiciliarias.</li>
+          </ul>
+        </article>
+
+        <article class="item">
+          <h4>Coordinador Servicio de Ayuda a Domicilio</h4>
+          <div class="meta">Alcalá de Guadaíra (Sevilla) · Ene 2012 – Nov 2016 · CLECE · Grupo Ineprodes · Grupo EULEN</div>
+          <ul class="bullets">
+            <li>Selección, seguimiento y evaluación del desempeño del personal auxiliar.</li>
+            <li>Planificación de cuadrantes y seguimiento de calidad (hasta 350 usuarios).</li>
+            <li>Coordinación con responsables municipales, análisis de quejas e incidencias.</li>
+            <li>Organización del Ayudante de Coordinación y formación continua del equipo.</li>
+          </ul>
+        </article>
+
+        <article class="item">
+          <h4>Prácticas de Trabajo Social · <em>Centro Antaris</em></h4>
+          <div class="meta">Sevilla · 2010 – 2011 · 6 meses</div>
+        </article>
+
+        <article class="item">
+          <h4>Admisiones · <em>Isla Mágica</em></h4>
+          <div class="meta">Verano 2007</div>
+        </article>
+      </section>
+
+      <section class="card block" id="formacion">
+        <h2>Formación académica</h2>
+        <div class="grid-2">
+          <div class="item">
+            <h4>Experto Universitario en Exclusión e Inclusión Social</h4>
+            <div class="meta">UNED · 750 h · 2012</div>
+          </div>
+          <div class="item">
+            <h4>Diplomatura en Trabajo Social</h4>
+            <div class="meta">Universidad Pablo de Olavide · 2011</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card block" id="competencias">
+        <h2>Competencias técnicas</h2>
+        <div class="skills">
+          <span class="skill">Excel / Word / PowerPoint / Access</span>
+          <span class="skill">Windows & redes</span>
+          <span class="skill">Impresoras / Periféricos</span>
+          <span class="skill">Moodle</span>
+          <span class="skill">Iseazy</span>
+          <span class="skill">GESAD / Eugisad</span>
+          <span class="skill">AS‑400</span>
+          <span class="skill">SQL Manager</span>
+          <span class="skill">Adobe Photoshop / Lightroom</span>
+          <span class="skill">Premiere / After Effects</span>
+          <span class="skill">Camtasia / Wondershare</span>
+          <span class="skill">Capture One 22</span>
+          <span class="skill">Cubase</span>
+        </div>
+      </section>
+
+      <section class="card block">
+        <h2>Formación complementaria (selección)</h2>
+        <ul class="bullets">
+          <li>Lean Management · Nivel Practitioner (ISO 18404:2015) · 12 h · 2021</li>
+          <li>SQL · Penta Learning E‑ducation · 40 h · 2021</li>
+          <li>Formador de Formadores · Educanet · 56 h · 2020</li>
+          <li>Planes Integrales de Igualdad en el ámbito público local · UGR · 30 h · 2019</li>
+          <li>Especialización: mercado laboral, inmigración e inserción profesional · UPO · 150 h · 2011</li>
+          <li>Metodología didáctica del juego · UPO · 50 h · 2011</li>
+        </ul>
+      </section>
+    </section>
+  </main>
+
+  <!-- Herramientas -->
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">Imprimir / PDF</button>
+    <button class="btn" onclick="swapTheme()">Cambiar color</button>
+  </div>
+
+<script>
+  const themes = [
+    {primary:'#5bd2c7', secondary:'#7aa2f7'},
+    {primary:'#22d3ee', secondary:'#0ea5e9'},
+    {primary:'#f59e0b', secondary:'#f97316'},
+    {primary:'#84cc16', secondary:'#22c55e'},
+    {primary:'#ef4444', secondary:'#f97316'}
+  ];
+  let idx = 0;
+  function swapTheme(){
+    idx = (idx + 1) % themes.length;
+    const t = themes[idx];
+    document.documentElement.style.setProperty('--primary', t.primary);
+    document.documentElement.style.setProperty('--primary-2', t.secondary);
+  }
+</script>
+</body>
+</html>
