@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alquiler Láser LED LXD NEXUS – Granada y Jaén</title>
+  <meta name="description" content="Alquiler profesional de Láser LED LXD NEXUS para depilación. Sin fianzas, sin permanencia. Formación incluida. Granada y Jaén.">
+  <!-- TailwindCSS CDN (sin build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Animaciones suaves similares a framer-motion */
+    .fade-up { opacity: 0; transform: translateY(10px); }
+    .fade-up.show { opacity: 1; transform: translateY(0); transition: all .5s ease; }
+    .glass { backdrop-filter: blur(6px); }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <!-- Top bar -->
+  <div class="w-full bg-slate-900 text-slate-100 text-sm">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
+      <span class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> 600 123 456</span>
+      <span class="hidden sm:flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> info@alquilerlasernexus.com</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-cyan-700 opacity-95"></div>
+    <div class="relative max-w-6xl mx-auto px-4 py-20 sm:py-28 text-white">
+      <h1 class="fade-up text-3xl sm:text-5xl font-bold leading-tight">
+        Alquiler de Láser <span class="text-cyan-300">LED LXD NEXUS</span> para profesionales
+      </h1>
+      <p class="fade-up mt-4 text-base sm:text-lg max-w-2xl text-slate-100/90">
+        Depilación rápida, eficaz y segura en <strong>Granada</strong> y <strong>Jaén</strong>. Sin fianzas ni permanencias. Formación incluida y soporte cercano.
+      </p>
+      <div class="fade-up mt-8 flex flex-col sm:flex-row gap-3">
+        <a href="#contacto" class="inline-flex items-center justify-center rounded-xl px-5 py-3 bg-cyan-400 text-slate-900 font-semibold hover:bg-cyan-300 transition">
+          Solicitar disponibilidad <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+        </a>
+        <a href="#tarifas" class="inline-flex items-center justify-center rounded-xl px-5 py-3 border border-white/30 hover:bg-white/10 transition">
+          Ver tarifas
+        </a>
+      </div>
+
+      <div id="features" class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="fade-up rounded-2xl bg-white/10 glass p-4 border border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-cyan-400/20 text-cyan-200"><i data-lucide="zap" class="w-5 h-5"></i></div>
+            <div>
+              <p class="font-semibold">Depilación rápida</p>
+              <p class="text-sm text-slate-100/80">Prisma 14×14 mm: más cobertura por pasada.</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up rounded-2xl bg-white/10 glass p-4 border border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-cyan-400/20 text-cyan-200"><i data-lucide="snowflake" class="w-5 h-5"></i></div>
+            <div>
+              <p class="font-semibold">Confort extremo</p>
+              <p class="text-sm text-slate-100/80">Doble TEC + Zafiro hasta −8 °C en la punta.</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up rounded-2xl bg-white/10 glass p-4 border border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-cyan-400/20 text-cyan-200"><i data-lucide="gauge" class="w-5 h-5"></i></div>
+            <div>
+              <p class="font-semibold">Rendimiento 10 Hz</p>
+              <p class="text-sm text-slate-100/80">Modo estático y ráfaga para zonas grandes.</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up rounded-2xl bg-white/10 glass p-4 border border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-cyan-400/20 text-cyan-200"><i data-lucide="shield" class="w-5 h-5"></i></div>
+            <div>
+              <p class="font-semibold">CE europeo</p>
+              <p class="text-sm text-slate-100/80">Fabricado en Europa con marcado CE sanitario.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Por qué elegirnos -->
+  <section class="max-w-6xl mx-auto px-4 py-16" id="ventajas">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold">¿Por qué elegir <span class="text-slate-700">nuestro alquiler</span>?</h2>
+        <ul class="mt-6 space-y-3">
+          <li class="flex items-start gap-3"><i data-lucide="check" class="mt-1 w-5 h-5 text-cyan-600"></i><span>Flexibilidad total: desde 1 día, sin permanencias ni fianzas.</span></li>
+          <li class="flex items-start gap-3"><i data-lucide="check" class="mt-1 w-5 h-5 text-cyan-600"></i><span>Transparencia: tarifas claras, sin costes ocultos ni límite de disparos.</span></li>
+          <li class="flex items-start gap-3"><i data-lucide="check" class="mt-1 w-5 h-5 text-cyan-600"></i><span>Formación incluida: parámetros, protocolos y seguridad.</span></li>
+          <li class="flex items-start gap-3"><i data-lucide="check" class="mt-1 w-5 h-5 text-cyan-600"></i><span>Soporte cercano: respuesta rápida en Granada y Jaén.</span></li>
+          <li class="flex items-start gap-3"><i data-lucide="check" class="mt-1 w-5 h-5 text-cyan-600"></i><span>Equipo ligero (10,5 kg) y compacto: ideal para eventos y jornadas intensivas.</span></li>
+        </ul>
+        <div class="mt-6 flex gap-3">
+          <a href="#contacto" class="inline-flex items-center rounded-xl px-5 py-3 bg-slate-900 text-white hover:bg-slate-800 font-medium">
+            Reservar fecha <i data-lucide="calendar" class="ml-2 w-4 h-4"></i>
+          </a>
+          <a href="#especificaciones" class="inline-flex items-center rounded-xl px-5 py-3 border border-slate-300 hover:bg-slate-100 font-medium">
+            Ver especificaciones <i data-lucide="info" class="ml-2 w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-200">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Tipo</p>
+            <p class="mt-1 font-semibold text-slate-800">Láser LED LXD</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Longitud de onda</p>
+            <p class="mt-1 font-semibold text-slate-800">780–850 nm</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Fluencia</p>
+            <p class="mt-1 font-semibold text-slate-800">1–40 J/cm²</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Frecuencia</p>
+            <p class="mt-1 font-semibold text-slate-800">1–10 Hz</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Ancho de pulso</p>
+            <p class="mt-1 font-semibold text-slate-800">5–250 ms</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Spot / Prisma</p>
+            <p class="mt-1 font-semibold text-slate-800">14×14 mm / 10×10 mm</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Enfriamiento</p>
+            <p class="mt-1 font-semibold text-slate-800">Doble TEC + Zafiro (−8 a +5 °C)</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Refrigerante</p>
+            <p class="mt-1 font-semibold text-slate-800">1,2 L agua destilada</p>
+          </div>
+          <div class="rounded-xl p-4 bg-slate-50 border border-slate-200">
+            <p class="text-xs uppercase tracking-wide text-slate-500">Peso / Tamaño</p>
+            <p class="mt-1 font-semibold text-slate-800">10,5 kg / 40×41×23 cm</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-slate-600 flex items-center gap-2"><i data-lucide="wrench" class="w-4 h-4"></i> Mantenimiento simplificado: sin cambios de filtros, bajo consumo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifas -->
+  <section id="tarifas" class="bg-white border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <div class="flex items-center gap-2">
+        <i data-lucide="rocket" class="w-5 h-5 text-cyan-600"></i>
+        <h2 class="text-2xl sm:text-3xl font-bold">Tarifas sencillas y transparentes</h2>
+      </div>
+      <p class="mt-2 text-slate-600">Sin permanencia. Sin fianzas. Sin límite de disparos.</p>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        <div class="rounded-2xl p-6 bg-slate-900 text-white">
+          <h3 class="text-lg font-semibold">1 día</h3>
+          <p class="mt-2 text-4xl font-bold">180€</p>
+          <p class="mt-2 text-sm text-slate-300">Ideal para jornadas puntuales.</p>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-300"></i> Formación básica incluida</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-300"></i> Soporte en el día</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-300"></i> Sin límite de disparos</li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl p-6 bg-white border-2 border-cyan-500 shadow-md">
+          <h3 class="text-lg font-semibold">Pack ≥ 5 días</h3>
+          <p class="mt-2 text-4xl font-bold text-slate-900">100€<span class="text-base font-medium"> /día</span></p>
+          <p class="mt-2 text-sm text-slate-600">El mejor coste por jornada.</p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-700">
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-600"></i> Planificación flexible</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-600"></i> Sin fianzas</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-600"></i> Soporte preferente</li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl p-6 bg-white border border-slate-200">
+          <h3 class="text-lg font-semibold">Mensual / campañas</h3>
+          <p class="mt-2 text-4xl font-bold text-slate-900">A medida</p>
+          <p class="mt-2 text-sm text-slate-600">Cuota especial para picos de demanda.</p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-700">
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-600"></i> Presupuesto personalizado</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-600"></i> Material promocional opcional</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-600"></i> Formación avanzada (opcional)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 text-sm text-slate-500 flex items-center gap-2">
+        <i data-lucide="timer" class="w-4 h-4"></i> *IVA no incluido. Traslado dentro de Granada/Jaén incluido; otras provincias a consultar.
+      </div>
+    </div>
+  </section>
+
+  <!-- Especificaciones técnicas -->
+  <section id="especificaciones" class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="text-2xl sm:text-3xl font-bold">Especificaciones del NEXUS</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <!-- Repetimos la misma tabla de specs resumida para el HTML simple -->
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Tipo</p><p class="mt-1 font-semibold">Láser LED LXD</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Longitud de onda</p><p class="mt-1 font-semibold">780–850 nm</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Fluencia</p><p class="mt-1 font-semibold">1–40 J/cm²</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Frecuencia</p><p class="mt-1 font-semibold">1–10 Hz</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Ancho de pulso</p><p class="mt-1 font-semibold">5–250 ms</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Spot / Prisma</p><p class="mt-1 font-semibold">14×14 mm / 10×10 mm</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Enfriamiento</p><p class="mt-1 font-semibold">Doble TEC + Zafiro (−8 a +5 °C)</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Refrigerante</p><p class="mt-1 font-semibold">1,2 L agua destilada</p></div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Peso / Tamaño</p><p class="mt-1 font-semibold">10,5 kg / 40×41×23 cm</p></div>
+    </div>
+    <div class="mt-6 rounded-xl bg-cyan-50 border border-cyan-200 p-4 text-cyan-900">
+      <p class="text-sm"><strong>Contraindicaciones generales:</strong> cáncer de piel, gestación, medicación fotosensible, exposición solar reciente (3–4 semanas), infecciones activas en zona, queloides, trastornos hormonales sensibles a luz intensa, anticoagulantes, epilepsia, coagulopatías, entre otras. Valorar siempre historia clínica del paciente y consentimiento informado.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-cyan-700"></div>
+    <div class="relative max-w-6xl mx-auto px-4 text-white">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h3 class="text-2xl sm:text-3xl font-bold">Agenda ya tu próxima jornada de láser</h3>
+          <p class="mt-2 text-slate-100/90">Disponibilidad inmediata en Granada y Jaén. Respuesta en el mismo día laboral.</p>
+        </div>
+        <div class="flex md:justify-end">
+          <a href="#contacto" class="inline-flex items-center rounded-xl px-6 py-3 bg-cyan-400 text-slate-900 font-semibold hover:bg-cyan-300">
+            Contactar ahora <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="text-2xl sm:text-3xl font-bold">Contacto</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-6">
+      <div class="rounded-2xl bg-white border border-slate-200 p-6">
+        <div class="flex items-start gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-cyan-600"></i><div><p class="font-semibold">Calle Ejemplo 123</p><p class="text-sm text-slate-600">18000 Granada</p></div></div>
+        <div class="mt-4 flex items-start gap-3"><i data-lucide="phone" class="w-5 h-5 text-cyan-600"></i><div><p class="font-semibold">600 123 456</p><p class="text-sm text-slate-600">L–V 9:00–20:00</p></div></div>
+        <div class="mt-4 flex items-start gap-3"><i data-lucide="mail" class="w-5 h-5 text-cyan-600"></i><div><p class="font-semibold">info@alquilerlasernexus.com</p><p class="text-sm text-slate-600">Respuesta en el día laboral</p></div></div>
+      </div>
+
+      <form id="contact-form" class="md:col-span-2 rounded-2xl bg-white border border-slate-200 p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm text-slate-700">Nombre del centro</label>
+            <input required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Tu centro / clínica">
+          </div>
+          <div>
+            <label class="text-sm text-slate-700">Persona de contacto</label>
+            <input required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Tu nombre">
+          </div>
+          <div>
+            <label class="text-sm text-slate-700">Teléfono</label>
+            <input required type="tel" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="600 000 000">
+          </div>
+          <div>
+            <label class="text-sm text-slate-700">Email</label>
+            <input required type="email" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="centro@correo.com">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="text-sm text-slate-700">Mensaje</label>
+            <textarea rows="4" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Fechas y nº de días que te interesan"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="mt-4 inline-flex items-center rounded-xl px-5 py-3 bg-slate-900 text-white hover:bg-slate-800">Enviar solicitud</button>
+        <a href="https://wa.me/34600123456" target="_blank" rel="noreferrer" class="mt-4 ml-3 inline-flex items-center rounded-xl px-5 py-3 border border-slate-300 hover:bg-slate-100">WhatsApp</a>
+        <div id="form-ok" class="hidden mt-4 rounded-xl bg-green-50 border border-green-200 p-4 text-green-900">
+          ¡Gracias! Hemos recibido tu solicitud. Te contactaremos en el día laboral.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="bg-white border-t border-slate-2 00">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <h2 class="text-2xl sm:text-3xl font-bold">Preguntas frecuentes</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <p class="font-semibold">¿Para quién es este servicio?</p>
+          <p class="mt-1 text-slate-700">Solo para profesionales: esteticistas, clínicas y centros médico‑estéticos que quieran ofrecer depilación láser sin inversión inicial.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <p class="font-semibold">¿Hay permanencia o fianzas?</p>
+          <p class="mt-1 text-slate-700">No. Puedes alquilar desde 1 día. Para ≥5 días aplicamos tarifa reducida por día.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <p class="font-semibold">¿Incluye formación?</p>
+          <p class="mt-1 text-slate-700">Sí. Incluimos onboarding de uso seguro, parámetros y protocolos básicos. Opcional: formación avanzada.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <p class="font-semibold">¿Hay límite de disparos?</p>
+          <p class="mt-1 text-slate-700">No imponemos límite por día. Tú controlas el uso en tus sesiones.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <p class="font-semibold">¿Cómo gestionáis el soporte?</p>
+          <p class="mt-1 text-slate-700">Soporte cercano en Granada y Jaén. Sustitución o solución rápida ante incidencias.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-6">
+      <div>
+        <p class="text-lg font-bold">Alquiler Láser NEXUS</p>
+        <p class="mt-2 text-slate-400">Depilación láser LED LXD para profesionales en Granada y Jaén.</p>
+      </div>
+      <div>
+        <p class="font-semibold">Contacto</p>
+        <p class="mt-2 flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> 600 123 456</p>
+        <p class="mt-1 flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> info@alquilerlasernexus.com</p>
+        <p class="mt-1 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Calle Ejemplo 123, 18000 Granada</p>
+      </div>
+      <div>
+        <p class="font-semibold">Legal</p>
+        <ul class="mt-2 text-slate-400 text-sm space-y-1">
+          <li><a href="#" class="hover:underline">Aviso legal</a></li>
+          <li><a href="#" class="hover:underline">Política de privacidad</a></li>
+          <li><a href="#" class="hover:underline">Política de cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4 py-4 text-xs text-slate-400">© <span id="year"></span> Alquiler Láser NEXUS. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Activar Lucide
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide && lucide.createIcons) lucide.createIcons();
+
+      // Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Animaciones "fade-up"
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+      // Form submit (mostrar OK)
+      const form = document.getElementById('contact-form');
+      const ok = document.getElementById('form-ok');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        ok.classList.remove('hidden');
+        form.reset();
+      });
+    });
+  </script>
+</body>
+</html>
