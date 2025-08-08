@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simulador Indoor · V4.7.2 (Mobile‑First)</title>
+  <style>
+    :root{--bg:#0e1012;--fg:#e9f1ea;--muted:#9fb2a2;--card:#121518;--soft:#151a1a;--line:#1e2723;--accent:#17a36b;--accent-2:#21c983;--accent-ink:#072318;--warn:#ffd369;--bad:#ff6a6a;--good:#62e29b;--shadow:0 1px 0 #0b0e0d, 0 6px 24px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.35)}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;background:var(--bg);color:var(--fg)}
+    .wrap{max-width:1120px;margin:auto;padding:16px}
+    @media (min-width:900px){.wrap{padding:24px}}
+    h1{margin:0 0 12px;font-size:20px;font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    @media (min-width:680px){h1{font-size:24px}}
+    .badge{font-size:12px;padding:2px 8px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(180deg, rgba(33,201,131,.12), rgba(33,201,131,.04));color:var(--good)}
+    h3{margin:0 0 10px;font-size:15px;font-weight:700}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.04));border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
+    @media (min-width:900px){.card{padding:14px}}
+    .grid2{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+    @media (min-width:980px){.grid2{grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}}
+    .grid3{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    @media (min-width:900px){.grid3{grid-template-columns:repeat(3,1fr);gap:12px}}
+    .grid4{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media (min-width:900px){.grid4{grid-template-columns:repeat(4,1fr);gap:12px}}
+    .field{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .field span{opacity:.95;font-size:12.5px}
+    input,select{width:96px;padding:10px 10px;border-radius:10px;border:1px solid var(--line);background:#121816;color:var(--fg);font-size:14px;text-align:right;min-height:40px}
+    @media (min-width:900px){input,select{width:108px;font-size:13px;min-height:34px}}
+    select{text-align-last:right}
+    input:focus,select:focus{outline:2px solid rgba(33,201,131,.35);box-shadow:0 0 0 3px rgba(33,201,131,.12)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#16201c;color:var(--fg);cursor:pointer;transition:.2s;min-height:42px}
+    .btn.green{background:linear-gradient(180deg, var(--accent-2), var(--accent));border-color:transparent;color:var(--accent-ink);font-weight:700;box-shadow:0 6px 18px rgba(33,201,131,.28)}
+    .row-actions{display:flex;gap:10px;margin-top:8px;align-items:center;flex-wrap:wrap}
+    .row-actions .btn{flex:1}
+    @media (min-width:720px){.row-actions .btn{flex:0}}
+    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+    .tabs{display:flex;gap:8px;flex-wrap:nowrap;overflow:auto;padding-bottom:4px}
+    .tabs::-webkit-scrollbar{height:6px}
+    .tab{white-space:nowrap;background:#151d1a;border:1px solid var(--line);padding:6px 12px;border-radius:999px;cursor:pointer;transition:.2s;color:var(--muted)}
+    .tab.active{background:linear-gradient(180deg, var(--accent-2), var(--accent));border-color:transparent;color:var(--accent-ink);font-weight:700}
+    .kv{display:flex;justify-content:space-between;align-items:center;background:rgba(20,30,27,.6);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:8px}
+    .kv span:last-child{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+    .status{padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
+    .good{background:rgba(98,226,155,.15);color:var(--good)}.warn{background:rgba(255,211,105,.12);color:var(--warn)}.bad{background:rgba(255,106,106,.12);color:var(--bad)}
+    table{width:100%;border-collapse:separate;border-spacing:0;margin-top:10px;overflow:auto;display:block;border-radius:12px;box-shadow:var(--shadow)}
+    thead th{position:sticky;top:0;background:#121b17;z-index:1}
+    th,td{border-bottom:1px solid var(--line);padding:10px;text-align:right;font-variant-numeric:tabular-nums}
+    th:first-child,td:first-child{text-align:left}
+    tbody tr:nth-child(odd){background:#121816}
+    .canvas-wrap{position:relative;width:100%;}
+    canvas{width:100%;height:auto;display:block;background:#0f1412;margin-top:10px;border:1px solid #1f3c32;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(33,201,131,.12)}
+    .advanced-only{display:none}.advanced-on .advanced-only{display:block}.kv.advanced-only{display:none}.advanced-on .kv.advanced-only{display:flex}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.45)}
+    .modal.open{display:flex}
+    .modal .panel{background:var(--card);border:1px solid var(--line);border-radius:14px 14px 0 0;box-shadow:var(--shadow);max-width:720px;width:100%;padding:14px}
+    @media (min-width:720px){.modal{align-items:center}.modal .panel{border-radius:14px;max-width:720px;width:94%}}
+    .extras-grid{display:grid;grid-template-columns:1fr 90px 90px 90px;gap:8px;align-items:center}
+    @media (max-width:520px){.extras-grid{grid-template-columns:1fr 70px 70px 70px}}
+    .extras-grid .hdr{opacity:.8;font-size:12px}
+    .extras-grid input{width:100%}
+    .pill{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;background:#16201c;border:1px solid var(--line);border-radius:999px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>
+      Simulador de Salas — V4.7.2
+      <span class="badge">Mobile‑first · Responsive canvas</span>
+      <span id="selftestBadge" class="badge" title="Self-tests">Self‑tests: running…</span>
+    </h1>
+
+    <div class="toolbar">
+      <div style="min-width:220px">
+        <label class="field"><span>Número de habitaciones</span>
+          <select id="roomCount">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </label>
+      </div>
+      <div class="tabs" id="roomTabs"></div>
+      <div style="margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <label class="field" style="gap:6px"><span>Modo avanzado</span>
+          <input type="checkbox" id="advancedMode" style="width:auto;text-align:left">
+        </label>
+        <div class="muted" id="activeHint" style="color:var(--muted);font-size:12px">Editando: Habitación 1</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Geometría de la habitación</h3>
+        <div class="grid3">
+          <label class="field"><span>Ancho (m)</span><input id="width" type="number" step="0.1" min="0.1"></label>
+          <label class="field"><span>Largo (m)</span><input id="length" type="number" step="0.1" min="0.1"></label>
+          <label class="field"><span>Altura (m)</span><input id="height" type="number" step="0.1" min="1.6"></label>
+        </div>
+        <div class="grid3">
+          <label class="field"><span>Perímetro libre (m)</span><input id="perimeter" type="number" step="0.1" min="0"></label>
+          <div></div><div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Pasillos</h3>
+        <div class="grid3">
+          <label class="field"><span>Ancho pasillo horiz. (m)</span><input id="aisleW" type="number" step="0.1" min="0"></label>
+          <label class="field"><span>Nº pasillos horiz. (Y)</span><input id="aisleHCount" type="number" step="1" min="0"></label>
+          <div></div>
+          <label class="field"><span>Ancho pasillo vert. (m)</span><input id="aisleVW" type="number" step="0.1" min="0"></label>
+          <label class="field"><span>Nº pasillos vert. (X)</span><input id="aisleVCount" type="number" step="1" min="0"></label>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Focos, Energía, Producción y Clima</h3>
+        <div class="grid3">
+          <label class="field"><span>Tipo de foco</span>
+            <select id="lampId"></select>
+          </label>
+          <label class="field advanced-only"><span>Método de potencia</span>
+            <select id="powerMethod">
+              <option value="fixtures" selected>Por focos</option>
+              <option value="wpm2">Por W/m²</option>
+            </select>
+          </label>
+          <label class="field advanced-only"><span>Watts/m²</span>
+            <input id="wpm2" type="number" step="10" min="0">
+          </label>
+        </div>
+        <div class="grid3">
+          <label class="field"><span>Horas luz/día</span><input id="hours" type="number" step="1" min="0" max="24"></label>
+          <label class="field"><span>Precio kWh (€)</span><input id="price" type="number" step="0.01" min="0"></label>
+          <label class="field"><span>Rendimiento (g/W)</span><input id="gpw" type="number" step="0.05" min="0"></label>
+        </div>
+        <div class="grid3">
+          <label class="field"><span>Fijar nº de focos</span>
+            <select id="useManualLamps"><option value="no" selected>No</option><option value="si">Sí</option></select>
+          </label>
+          <label class="field"><span>Nº focos (manual)</span><input id="manualLampCount" type="number" step="1" min="1" value="1"></label>
+          <label class="field"><span>Producción deseada (g)</span><input id="prod_desired_g" type="number" step="10" min="0" value="0"></label>
+        </div>
+        <div class="grid3 advanced-only">
+          <label class="field"><span>Rend. objetivo (g/m²)</span><input id="gpm2" type="number" step="10" min="0"></label>
+          <label class="field"><span>Renovaciones/hora</span><input id="ach" type="number" step="1" min="0"></label>
+          <label class="field"><span>COP A/A</span><input id="ac_cop" type="number" step="0.1" min="1.5" value="3.0"></label>
+        </div>
+        <div class="row-actions">
+          <button id="extrasBtn" class="btn">Extras eléctricos</button>
+          <button id="applyAllBtn" class="btn green">Aplicar a todas las habitaciones</button>
+        </div>
+        <div id="results" style="margin-top:8px"></div>
+      </div>
+      <div class="card">
+        <h3>Vista en planta</h3>
+        <div class="canvas-wrap"><canvas id="room" width="520" height="520"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card advanced-only" id="advancedPanel" style="margin-top:16px;">
+      <h3>Parámetros avanzados (PPFD/DLI, térmico, eléctrico, CO₂ y A/A)</h3>
+      <div class="grid4">
+        <label class="field"><span>Eficiencia (µmol/J)</span><input id="eff_umolJ" type="number" step="0.1" min="0" value="2.6"></label>
+        <label class="field"><span>Altura montaje (m)</span><input id="mount_h" type="number" step="0.05" min="0.3" value="0.45"></label>
+        <label class="field"><span>PF</span><input id="pf" type="number" step="0.01" min="0.5" max="1" value="0.95"></label>
+        <label class="field"><span>Tensión (V)</span><input id="voltage" type="number" step="1" min="110" value="230"></label>
+      </div>
+      <div class="grid4">
+        <label class="field"><span>Objetivo PPFD</span><input id="ppfd_target" type="number" step="10" min="0" value="700"></label>
+        <label class="field"><span>Factor térmico</span><input id="heat_factor" type="number" step="0.05" min="0.8" value="1.0"></label>
+        <label class="field"><span>Pérdidas extracción %</span><input id="extract_loss" type="number" step="5" min="0" max="80" value="20"></label>
+        <label class="field"><span>Derating circuito %</span><input id="derate" type="number" step="5" min="0" max="50" value="20"></label>
+      </div>
+      <h4 style="margin:12px 0 8px 0">CO₂ (con reducción de extracción)</h4>
+      <div class="grid4">
+        <label class="field"><span>Usar CO₂</span>
+          <select id="co2_enabled"><option value="si" selected>Sí</option><option value="no">No</option></select>
+        </label>
+        <label class="field"><span>Objetivo CO₂ (ppm)</span><input id="co2_target" type="number" step="50" min="400" value="1200"></label>
+        <label class="field"><span>CO₂ ambiente (ppm)</span><input id="co2_ambient" type="number" step="10" min="350" value="420"></label>
+        <label class="field"><span>Extracción durante CO₂ (%)</span><input id="co2_extract_pct" type="number" step="5" min="5" max="100" value="25"></label>
+      </div>
+      <div class="grid4">
+        <label class="field"><span>Botella (kg)</span><input id="co2_bottle_kg" type="number" step="1" min="1" value="6"></label>
+        <div></div><div></div><div></div>
+      </div>
+      <div id="advancedResults" style="margin-top:8px"></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Resumen de habitaciones</h3>
+      <div id="summary"></div>
+    </div>
+  </div>
+
+  <!-- Modal Extras eléctricos -->
+  <div class="modal" id="extrasModal" aria-hidden="true">
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <h4 style="margin:0">Extras eléctricos</h4>
+        <button class="btn" id="closeExtras">Cerrar</button>
+      </div>
+      <div class="pill" style="margin:8px 0 12px 0">
+        <span>Porcentaje de seguridad</span>
+        <input id="extrasSafety" type="number" step="5" min="0" max="80" style="width:90px;text-align:right"/> <span>%</span>
+      </div>
+      <div class="extras-grid" style="margin-top:4px">
+        <div class="hdr">Aparato</div><div class="hdr">W/unid</div><div class="hdr">Unidades</div><div class="hdr">Incluir</div>
+        <div>Aire acondicionado (auto)</div><input id="ex_ac_w" type="number" step="50" min="0"><input id="ex_ac_n" type="number" step="1" min="0"><input id="ex_ac_on" type="checkbox">
+        <div>Extractores</div><input id="ex_extr_w" type="number" step="10" min="0" value="150"><input id="ex_extr_n" type="number" step="1" min="0" value="1"><input id="ex_extr_on" type="checkbox">
+        <div>Intractores</div><input id="ex_intr_w" type="number" step="10" min="0" value="60"><input id="ex_intr_n" type="number" step="1" min="0" value="1"><input id="ex_intr_on" type="checkbox">
+        <div>Ventiladores</div><input id="ex_fans_w" type="number" step="10" min="0" value="40"><input id="ex_fans_n" type="number" step="1" min="0" value="2"><input id="ex_fans_on" type="checkbox">
+        <div>Deshumidificadores</div><input id="ex_dehum_w" type="number" step="50" min="0" value="300"><input id="ex_dehum_n" type="number" step="1" min="0" value="0"><input id="ex_dehum_on" type="checkbox">
+        <div>Humidificadores</div><input id="ex_hum_w" type="number" step="20" min="0" value="60"><input id="ex_hum_n" type="number" step="1" min="0" value="0"><input id="ex_hum_on" type="checkbox">
+        <div>Bombas de riego</div><input id="ex_pump_w" type="number" step="10" min="0" value="30"><input id="ex_pump_n" type="number" step="1" min="0" value="1"><input id="ex_pump_on" type="checkbox">
+        <div>Iluminación auxiliar</div><input id="ex_aux_w" type="number" step="20" min="0" value="100"><input id="ex_aux_n" type="number" step="1" min="0" value="0"><input id="ex_aux_on" type="checkbox">
+        <div>Calefactores</div><input id="ex_heat_w" type="number" step="50" min="0" value="0"><input id="ex_heat_n" type="number" step="1" min="0" value="0"><input id="ex_heat_on" type="checkbox">
+      </div>
+      <div class="row-actions" style="margin-top:12px">
+        <span id="extrasTotalLabel" class="muted"></span>
+        <button id="saveExtras" class="btn green">Guardar extras</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Helpers robustos contra null =====
+    const $ = (id)=>document.getElementById(id);
+    const has = (id)=>!!$(id);
+    const setVal = (id,v)=>{const el=$(id); if(el!=null) el.value=v;};
+    const getNum = (id, def=0)=>{const el=$(id); if(!el) return def; const n=+el.value; return Number.isFinite(n)?n:def;};
+    const getSel = (id, def='')=>{const el=$(id); return el? el.value : def;};
+
+    // ===== Responsive canvas (devicePixelRatio) =====
+    function resizeCanvas(){ const canvas=$('room'); if(!canvas) return; const wrap=canvas.parentElement; const dpr=window.devicePixelRatio||1; const cssW=Math.max(280, Math.min(wrap.clientWidth, 900)); const cssH=cssW; // cuadrado
+      canvas.style.width=cssW+'px'; canvas.style.height=cssH+'px';
+      canvas.width=Math.round(cssW*dpr); canvas.height=Math.round(cssH*dpr); const ctx=canvas.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); draw(); }
+
+    const LAMPS=[
+      {id:'lumatek-zeus600', name:'Lumatek Zeus 600W Pro (LED barras)', type:'LED', watt:600, coverage_m2:1.96, lumens:90000, gpw_default:1.6, eff_umolJ:2.7, mount_h:0.4},
+      {id:'gavita-1700e', name:'Gavita Pro 1700e 645W (LED)', type:'LED', watt:645, coverage_m2:1.80, lumens:96750, gpw_default:1.6, eff_umolJ:2.6, mount_h:0.45},
+      {id:'hlg-scorpion', name:'HLG Scorpion Diablo 650W (LED)', type:'LED', watt:650, coverage_m2:2.32, lumens:97500, gpw_default:1.7, eff_umolJ:2.8, mount_h:0.45},
+      {id:'sf-4000', name:'Spider Farmer SF‑4000 450W (LED)', type:'LED', watt:450, coverage_m2:1.50, lumens:67500, gpw_default:1.4, eff_umolJ:2.5, mount_h:0.35},
+      {id:'acinf-evo8', name:'AC Infinity IONFRAME EVO8 730W (LED)', type:'LED', watt:730, coverage_m2:2.32, lumens:109500, gpw_default:1.5, eff_umolJ:2.7, mount_h:0.5},
+      {id:'hps-600', name:'HPS 600W (sodio alta presión)', type:'HPS', watt:600, coverage_m2:1.44, lumens:90000, gpw_default:0.75, eff_umolJ:1.6, mount_h:0.6},
+      {id:'cmh-315', name:'CMH/LEC 315W', type:'LEC', watt:315, coverage_m2:0.90, lumens:38000, gpw_default:1.0, eff_umolJ:1.7, mount_h:0.5},
+      {id:'cmh-630', name:'CMH/LEC 630W (doble 315)', type:'LEC', watt:630, coverage_m2:1.44, lumens:76000, gpw_default:1.1, eff_umolJ:1.8, mount_h:0.55},
+      {id:'lec-630-de', name:'LEC 630W DE (double ended)', type:'LEC', watt:630, coverage_m2:1.50, lumens:80000, gpw_default:1.1, eff_umolJ:1.9, mount_h:0.6},
+      {id:'hps-1000', name:'HPS 1000W', type:'HPS', watt:1000, coverage_m2:2.25, lumens:130000, gpw_default:0.7, eff_umolJ:1.7, mount_h:0.8}
+    ];
+    const lampById=id=>LAMPS.find(l=>l.id===id)||LAMPS[0];
+    const suggestWpm2=l=>Math.round((l.watt/Math.max(0.1,l.coverage_m2))/10)*10;
+
+    const defaultRoom=()=>({
+      width:4,length:4,height:2.2,perimeter:0.5,
+      aisleW:0.6,aisleHCount:1,aisleVW:0.6,aisleVCount:0,
+      lampId:LAMPS[0].id,powerMethod:'fixtures',wpm2:suggestWpm2(LAMPS[0]),hours:12,price:0.22,
+      gpw:LAMPS[0].gpw_default,gpm2:0,ach:30,
+      useManualLamps:false,manualLampCount:1,
+      eff_umolJ:LAMPS[0].eff_umolJ||2.6,mount_h:LAMPS[0].mount_h||0.45,pf:0.95,voltage:230,ppfd_target:700,heat_factor:1.0,extract_loss:20,derate:20,
+      co2_enabled:true,co2_target:1200,co2_ambient:420,co2_extract_pct:25,co2_bottle_kg:6,
+      ac_cop:3.0,
+      prod_desired_g:0,
+      extrasSafetyPct:20,
+      extras:{ ac:{w:0,n:1,on:false,auto:true}, extr:{w:150,n:1,on:false}, intr:{w:60,n:1,on:false}, fans:{w:40,n:2,on:false}, dehum:{w:300,n:0,on:false}, hum:{w:60,n:0,on:false}, pump:{w:30,n:1,on:false}, aux:{w:100,n:0,on:false}, heat:{w:0,n:0,on:false} }
+    });
+
+    let roomCount=1;const rooms=Array.from({length:roomCount},defaultRoom);let current=0; let booted=false;
+
+    // ===== Tabs =====
+    function renderTabs(){ const tabs=$("roomTabs"); if(!tabs) return; tabs.innerHTML=''; for(let i=0;i<roomCount;i++){ const b=document.createElement('button'); b.className='tab'+(i===current?' active':''); b.textContent='Hab. '+(i+1); b.onclick=()=>{ saveFromUI(); current=i; loadToUI(); draw(); renderResults(); renderSummary(); renderActiveHint(); renderAdvancedResults(); renderTabs(); }; tabs.appendChild(b);} }
+    function renderActiveHint(){ const el=$("activeHint"); if(el) el.textContent='Editando: Habitación '+(current+1); }
+
+    // ===== Select de focos =====
+    function renderLampOptions(){ const sel=$('lampId'); if(!sel) return; sel.innerHTML=LAMPS.map(l=>`<option value="${l.id}">${l.name} — ${l.watt}W · ${l.coverage_m2} m² · ${l.gpw_default} g/W</option>`).join(''); }
+
+    // ===== Cargar/guardar =====
+    const fields=['width','length','height','perimeter','aisleW','aisleHCount','aisleVW','aisleVCount','powerMethod','wpm2','hours','price','gpw','gpm2','ach','eff_umolJ','mount_h','pf','voltage','ppfd_target','heat_factor','extract_loss','derate','co2_target','co2_ambient','co2_bottle_kg','co2_extract_pct','ac_cop','prod_desired_g','extrasSafetyPct'];
+    function loadToUI(){ const r=rooms[current]; fields.forEach(id=>{ if($(id)) setVal(id, r[id]); }); if($('lampId')) setVal('lampId', r.lampId); if($('useManualLamps')) setVal('useManualLamps', r.useManualLamps?'si':'no'); if($('manualLampCount')) setVal('manualLampCount', r.manualLampCount); if($('co2_enabled')) setVal('co2_enabled', r.co2_enabled?'si':'no'); resizeCanvas(); }
+    function saveFromUI(){ const r=rooms[current];
+      r.width=getNum('width',r.width); r.length=getNum('length',r.length); r.height=getNum('height',r.height); r.perimeter=Math.max(0,getNum('perimeter',r.perimeter));
+      r.aisleW=Math.max(0,getNum('aisleW',r.aisleW)); r.aisleHCount=Math.max(0,Math.floor(getNum('aisleHCount',r.aisleHCount))); r.aisleVW=Math.max(0,getNum('aisleVW',r.aisleVW)); r.aisleVCount=Math.max(0,Math.floor(getNum('aisleVCount',r.aisleVCount)));
+      r.powerMethod=has('powerMethod')? getSel('powerMethod','fixtures') : 'fixtures'; r.wpm2=Math.max(0,getNum('wpm2',r.wpm2)); r.hours=Math.max(0,Math.min(24,getNum('hours',r.hours))); r.price=Math.max(0,getNum('price',r.price));
+      r.gpw=Math.max(0,getNum('gpw',r.gpw)); r.gpm2=Math.max(0,getNum('gpm2',r.gpm2)); r.ach=Math.max(0,getNum('ach',r.ach)); r.lampId=getSel('lampId',r.lampId);
+      r.useManualLamps=(getSel('useManualLamps','no')==='si'); r.manualLampCount=Math.max(1,Math.floor(getNum('manualLampCount',r.manualLampCount)));
+      if(has('eff_umolJ')){ r.eff_umolJ=Math.max(0,getNum('eff_umolJ',r.eff_umolJ)); r.mount_h=Math.max(0,getNum('mount_h',r.mount_h)); r.pf=Math.max(0.5,Math.min(1,getNum('pf',r.pf))); r.voltage=Math.max(110,getNum('voltage',r.voltage)); r.ppfd_target=Math.max(0,getNum('ppfd_target',r.ppfd_target)); r.heat_factor=Math.max(0.5,getNum('heat_factor',r.heat_factor)); r.extract_loss=Math.max(0,Math.min(80,getNum('extract_loss',r.extract_loss))); r.derate=Math.max(0,Math.min(50,getNum('derate',r.derate))); r.co2_enabled=(getSel('co2_enabled',r.co2_enabled?'si':'no')==='si'); r.co2_target=Math.max(400,getNum('co2_target',r.co2_target)); r.co2_ambient=Math.max(350,getNum('co2_ambient',r.co2_ambient)); r.co2_bottle_kg=Math.max(1,getNum('co2_bottle_kg',r.co2_bottle_kg)); r.co2_extract_pct=Math.max(5,Math.min(100,getNum('co2_extract_pct',r.co2_extract_pct))); r.ac_cop=Math.max(1.5,getNum('ac_cop',r.ac_cop)); r.prod_desired_g=Math.max(0,getNum('prod_desired_g',r.prod_desired_g)); r.extrasSafetyPct=Math.max(0,Math.min(80,getNum('extrasSafetyPct',r.extrasSafetyPct))); }
+    }
+
+    // ===== Cálculos =====
+    function calc(r){
+      const safeW=Math.max(0.0001,r.width),safeL=Math.max(0.0001,r.length); const maxPerim=Math.min(safeW,safeL)/2; const perimeter=Math.max(0,Math.min(r.perimeter,maxPerim));
+      const innerW=Math.max(0,safeW-2*perimeter), innerL=Math.max(0,safeL-2*perimeter);
+      const areaInterior=innerW*innerL; const areaPasV=r.aisleVW*innerL*r.aisleVCount; const areaPasH=r.aisleW*innerW*r.aisleHCount; const overlap=r.aisleVCount*r.aisleHCount*r.aisleVW*r.aisleW;
+      const areaPas=Math.min(areaInterior,Math.max(0,areaPasV+areaPasH-overlap)); const areaCult=Math.max(0,areaInterior-areaPas);
+      const L=lampById(r.lampId); const suggestedWpm2=suggestWpm2(L); const wpm2=r.wpm2>0?r.wpm2:suggestedWpm2; const useFixtures=(has('powerMethod')? getSel('powerMethod','fixtures') : 'fixtures') === 'fixtures';
+      const lampCount_cov=Math.max(1,Math.ceil(areaCult/Math.max(0.1,L.coverage_m2))); const watts_by_wpm2=areaCult*wpm2; const lampCount_power=Math.max(1,Math.round(watts_by_wpm2/Math.max(1,L.watt)));
+      let lampCountAuto=useFixtures?lampCount_cov:lampCount_power; let lampCount=r.useManualLamps?r.manualLampCount:lampCountAuto;
+      const coverage_total=lampCount*L.coverage_m2; const coverage_ratio=areaCult>0?Math.min(1,coverage_total/areaCult):0; const watts=useFixtures?(lampCount*L.watt):watts_by_wpm2;
+      const kWhDay=watts*r.hours/1000; const kWhMonth=kWhDay*30; const cost=kWhMonth*r.price; const volume=safeW*safeL*r.height; const extract_base=volume*r.ach; const extract_oper=(r.co2_enabled?(extract_base*(r.co2_extract_pct/100)):extract_base); const extract=extract_oper*(1+(r.extract_loss/100));
+      const ppf_umol_s=watts*(r.eff_umolJ||2.6); const ppfd=areaCult>0?ppf_umol_s/areaCult:0; const dli=ppfd*3600*r.hours/1e6; const heat_W=(useFixtures?(lampCount*L.watt):watts_by_wpm2)*(r.heat_factor||1); const frig_h=heat_W*0.86; const kw_frio=frig_h/860;
+      const ac_auto_W = kw_frio*1000/Math.max(1.5,r.ac_cop||3.0);
+      const ex=r.extras||{};
+      const exItems=[
+        {key:'ac', w: ex.ac?.w>0?ex.ac.w:Math.round(ac_auto_W), n: ex.ac?.n??1, on: !!ex.ac?.on},
+        {key:'extr', w: ex.extr?.w||150, n: ex.extr?.n||1, on: !!ex.extr?.on},
+        {key:'intr', w: ex.intr?.w||60, n: ex.intr?.n||1, on: !!ex.intr?.on},
+        {key:'fans', w: ex.fans?.w||40, n: ex.fans?.n||2, on: !!ex.fans?.on},
+        {key:'dehum', w: ex.dehum?.w||300, n: ex.dehum?.n||0, on: !!ex.dehum?.on},
+        {key:'hum', w: ex.hum?.w||60, n: ex.hum?.n||0, on: !!ex.hum?.on},
+        {key:'pump', w: ex.pump?.w||30, n: ex.pump?.n||1, on: !!ex.pump?.on},
+        {key:'aux', w: ex.aux?.w||100, n: ex.aux?.n||0, on: !!ex.aux?.on},
+        {key:'heat', w: ex.heat?.w||0, n: ex.heat?.n||0, on: !!ex.heat?.on}
+      ];
+      const extras_W = exItems.filter(i=>i.on).reduce((s,i)=>s + (i.w*i.n),0);
+      const extras_W_safety = extras_W * (1 + (Math.max(0,r.extrasSafetyPct||0)/100));
+      const total_W_room = watts + extras_W_safety;
+      const prod_est_g = (r.gpw||0) * watts;
+      const amps_total = (total_W_room/(r.pf||0.95))/Math.max(110,r.voltage||230);
+      return {L,wpm2,lampCount,lampCountAuto,coverage_total,coverage_ratio,areaCult,watts,kWhDay,kWhMonth,cost,ppf_umol_s,ppfd,dli,extract,heat_W,frig_h,kw_frio,ac_auto_W,extras_W,extras_W_safety,total_W_room,prod_est_g,amps_total};
+    }
+
+    // ===== Dibujo =====
+    function draw(){ const canvas=$('room'); if(!canvas) return; const ctx=canvas.getContext('2d'); const r=rooms[current]; const pad=10; const safeW=Math.max(0.0001,r.width),safeL=Math.max(0.0001,r.length); const scale=Math.min(((canvas.clientWidth||canvas.width)-2*pad)/safeW,((canvas.clientHeight||canvas.height)-2*pad)/safeL); ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#20332c'; ctx.fillRect(pad,pad,safeW*scale,safeL*scale); const maxPerim=Math.min(safeW,safeL)/2; const perimeter=Math.max(0,Math.min(r.perimeter,maxPerim)); const innerW=Math.max(0,safeW-2*perimeter),innerL=Math.max(0,safeL-2*perimeter); const innerX=pad+perimeter*scale,innerY=pad+perimeter*scale; ctx.fillStyle=varGreen(ctx,canvas); ctx.fillRect(innerX,innerY,innerW*scale,innerL*scale); ctx.fillStyle='#0b0f0e'; if(r.aisleVW>0&&r.aisleVCount>0&&r.aisleVW<innerW){ const gapV=innerW/(r.aisleVCount+1); for(let i=1;i<=r.aisleVCount;i++){ const x0=innerX+gapV*scale*i-(r.aisleVW*scale)/2; ctx.fillRect(x0,innerY,r.aisleVW*scale,innerL*scale); } } if(r.aisleW>0&&r.aisleHCount>0&&r.aisleW<innerL){ const gapH=innerL/(r.aisleHCount+1); for(let j=1;j<=r.aisleHCount;j++){ const y0=innerY+gapH*scale*j-(r.aisleW*scale)/2; ctx.fillRect(innerX,y0,innerW*scale,r.aisleW*scale); } } ctx.fillStyle='#9fb2a2'; ctx.font='11px ui-sans-serif'; ctx.fillText(`Hab ${current+1}`,pad,pad-2); }
+    function varGreen(ctx,canvas){ const g=ctx.createLinearGradient(0,0,0,(canvas.clientHeight||canvas.height)); g.addColorStop(0,'rgba(35,201,131,0.40)'); g.addColorStop(1,'rgba(33,201,131,0.55)'); return g; }
+
+    // ===== Resultados =====
+    function kv(k,v){return `<div class="kv"><span style="opacity:.8">${k}</span><span>${v}</span></div>`}
+    const fmt=(v,d=2)=>Number.isFinite(v)?v.toLocaleString(undefined,{maximumFractionDigits:d}):'-';
+
+    function renderResults(){ const r=rooms[current]; const m=calc(r); const coveragePct=Math.round(m.coverage_ratio*100); const covClass=coveragePct>=95?'good':(coveragePct>=80?'warn':'bad'); const results=$('results'); if(!results) return; results.innerHTML = '' +
+      kv('Área cultivable',fmt(m.areaCult)+' m²')+
+      kv('Foco',m.L.name)+
+      kv('Cobertura total',`${fmt(m.coverage_total)} m² — <span class="status ${covClass}">${coveragePct}%</span> del área`)+
+      kv('Nº de focos (auto)',`${m.lampCountAuto} uds`)+
+      kv('Nº de focos (en uso)',`${m.lampCount} uds`)+
+      kv('Watts iluminación',Math.round(m.watts)+' W')+
+      kv('Extras eléctricos (+seg.)',Math.round(m.extras_W_safety)+' W')+
+      kv('Watts totales sala',Math.round(m.total_W_room)+' W')+
+      kv('kWh/mes',fmt(m.kWhMonth)+' kWh')+
+      kv('€ / mes',fmt(m.cost))+
+      `<div class="kv advanced-only">PPFD (µmol/m²/s)<span>${fmt(m.ppfd,0)}</span></div>`+
+      `<div class="kv advanced-only">A/A necesario<span>${fmt(m.frig_h,0)} frig/h · ${fmt(m.kw_frio,2)} kWf</span></div>`+
+      `<div class="kv advanced-only">A (total sala) <span>${fmt(m.amps_total,2)} A</span></div>`+
+      kv('Producción estimada',fmt(m.prod_est_g,0)+' g');
+    }
+
+    function renderSummary(){ const cont=$('summary'); if(!cont) return; const metrics=rooms.slice(0,roomCount).map(calc); const totals=metrics.reduce((a,m,i)=>({area:(a.area||0)+m.areaCult,lamps:(a.lamps||0)+m.lampCount,watts:(a.watts||0)+m.watts,extra:(a.extra||0)+m.extras_W_safety,totw:(a.totw||0)+m.total_W_room,kwhm:(a.kwhm||0)+m.kWhMonth,cost:(a.cost||0)+m.cost,prodD:(a.prodD||0)+(rooms[i].prod_desired_g||0),prodE:(a.prodE||0)+m.prod_est_g,amps:(a.amps||0)+m.amps_total}),{});
+      let html='<table><thead><tr><th>Hab.</th><th>Área útil (m²)</th><th># focos</th><th>W iluminación</th><th>W extras(+seg.)</th><th>W totales</th><th>Prod. deseada (g)</th><th>Prod. estimada (g)</th><th>A (sala)</th></tr></thead><tbody>';
+      metrics.forEach((m,i)=>{const desired=rooms[i].prod_desired_g||0; html+=`<tr><td style="text-align:left">${i+1}</td><td>${fmt(m.areaCult)}</td><td>${m.lampCount}</td><td>${Math.round(m.watts)}</td><td>${Math.round(m.extras_W_safety)}</td><td>${Math.round(m.total_W_room)}</td><td>${fmt(desired,0)}</td><td>${fmt(m.prod_est_g,0)}</td><td>${fmt(m.amps_total,2)}</td></tr>`});
+      html+=`</tbody><tfoot><tr><th>Total</th><th>${fmt(totals.area||0)}</th><th>${totals.lamps||0}</th><th>${Math.round(totals.watts||0)}</th><th>${Math.round(totals.extra||0)}</th><th>${Math.round(totals.totw||0)}</th><th>${fmt(totals.prodD||0,0)}</th><th>${fmt(totals.prodE||0,0)}</th><th>${fmt(totals.amps||0,2)} A</th></tr></tfoot></table>`;
+      cont.innerHTML=html;
+    }
+
+    // ===== Extras eléctricos (modal) =====
+    function openExtras(){ const r=rooms[current]; const m=calc(r); if(has('extrasSafety')) setVal('extrasSafety', r.extrasSafetyPct);
+      setVal('ex_ac_w', (r.extras?.ac?.w>0?r.extras.ac.w:Math.round(m.ac_auto_W)) ); setVal('ex_ac_n', r.extras?.ac?.n??1); $('ex_ac_on') && ($('ex_ac_on').checked = !!r.extras?.ac?.on);
+      setVal('ex_extr_w', r.extras.extr.w); setVal('ex_extr_n', r.extras.extr.n); $('ex_extr_on') && ($('ex_extr_on').checked=r.extras.extr.on);
+      setVal('ex_intr_w', r.extras.intr.w); setVal('ex_intr_n', r.extras.intr.n); $('ex_intr_on') && ($('ex_intr_on').checked=r.extras.intr.on);
+      setVal('ex_fans_w', r.extras.fans.w); setVal('ex_fans_n', r.extras.fans.n); $('ex_fans_on') && ($('ex_fans_on').checked=r.extras.fans.on);
+      setVal('ex_dehum_w', r.extras.dehum.w); setVal('ex_dehum_n', r.extras.dehum.n); $('ex_dehum_on') && ($('ex_dehum_on').checked=r.extras.dehum.on);
+      setVal('ex_hum_w', r.extras.hum.w); setVal('ex_hum_n', r.extras.hum.n); $('ex_hum_on') && ($('ex_hum_on').checked=r.extras.hum.on);
+      setVal('ex_pump_w', r.extras.pump.w); setVal('ex_pump_n', r.extras.pump.n); $('ex_pump_on') && ($('ex_pump_on').checked=r.extras.pump.on);
+      setVal('ex_aux_w', r.extras.aux.w); setVal('ex_aux_n', r.extras.aux.n); $('ex_aux_on') && ($('ex_aux_on').checked=r.extras.aux.on);
+      setVal('ex_heat_w', r.extras.heat.w); setVal('ex_heat_n', r.extras.heat.n); $('ex_heat_on') && ($('ex_heat_on').checked=r.extras.heat.on);
+      updateExtrasPreview(); const modal=$('extrasModal'); if(modal) modal.classList.add('open');
+    }
+    function updateExtrasPreview(){ const extrasW=[
+        {w:getNum('ex_ac_w',0), n:getNum('ex_ac_n',0), on: $('ex_ac_on')? $('ex_ac_on').checked : false},
+        {w:getNum('ex_extr_w',0), n:getNum('ex_extr_n',0), on: $('ex_extr_on')? $('ex_extr_on').checked : false},
+        {w:getNum('ex_intr_w',0), n:getNum('ex_intr_n',0), on: $('ex_intr_on')? $('ex_intr_on').checked : false},
+        {w:getNum('ex_fans_w',0), n:getNum('ex_fans_n',0), on: $('ex_fans_on')? $('ex_fans_on').checked : false},
+        {w:getNum('ex_dehum_w',0), n:getNum('ex_dehum_n',0), on: $('ex_dehum_on')? $('ex_dehum_on').checked : false},
+        {w:getNum('ex_hum_w',0), n:getNum('ex_hum_n',0), on: $('ex_hum_on')? $('ex_hum_on').checked : false},
+        {w:getNum('ex_pump_w',0), n:getNum('ex_pump_n',0), on: $('ex_pump_on')? $('ex_pump_on').checked : false},
+        {w:getNum('ex_aux_w',0), n:getNum('ex_aux_n',0), on: $('ex_aux_on')? $('ex_aux_on').checked : false},
+        {w:getNum('ex_heat_w',0), n:getNum('ex_heat_n',0), on: $('ex_heat_on')? $('ex_heat_on').checked : false}
+      ].filter(i=>i.on).reduce((s,i)=>s+(i.w*i.n),0);
+      const withSec = extrasW * (1 + ((getNum('extrasSafety',20))/100)); const lbl=$('extrasTotalLabel'); if(lbl) lbl.textContent=`Extras: ${Math.round(extrasW)} W  ·  +seg.: ${Math.round(withSec)} W`;
+    }
+    function saveExtrasFromModal(){ const r=rooms[current]; r.extrasSafetyPct=Math.max(0,Math.min(80,getNum('extrasSafety',r.extrasSafetyPct)));
+      r.extras={ ac:{w:getNum('ex_ac_w',0), n:getNum('ex_ac_n',1), on:$('ex_ac_on')? $('ex_ac_on').checked : false}, extr:{w:getNum('ex_extr_w',150), n:getNum('ex_extr_n',1), on:$('ex_extr_on')? $('ex_extr_on').checked : false}, intr:{w:getNum('ex_intr_w',60), n:getNum('ex_intr_n',1), on:$('ex_intr_on')? $('ex_intr_on').checked : false}, fans:{w:getNum('ex_fans_w',40), n:getNum('ex_fans_n',2), on:$('ex_fans_on')? $('ex_fans_on').checked : false}, dehum:{w:getNum('ex_dehum_w',300), n:getNum('ex_dehum_n',0), on:$('ex_dehum_on')? $('ex_dehum_on').checked : false}, hum:{w:getNum('ex_hum_w',60), n:getNum('ex_hum_n',0), on:$('ex_hum_on')? $('ex_hum_on').checked : false}, pump:{w:getNum('ex_pump_w',30), n:getNum('ex_pump_n',1), on:$('ex_pump_on')? $('ex_pump_on').checked : false}, aux:{w:getNum('ex_aux_w',100), n:getNum('ex_aux_n',0), on:$('ex_aux_on')? $('ex_aux_on').checked : false}, heat:{w:getNum('ex_heat_w',0), n:getNum('ex_heat_n',0), on:$('ex_heat_on')? $('ex_heat_on').checked : false} };
+      const modal=$('extrasModal'); if(modal) modal.classList.remove('open'); draw(); renderResults(); renderSummary();
+    }
+
+    // ===== Eventos =====
+    function hookInputs(){
+      document.querySelectorAll('input,select').forEach(inp=> inp.addEventListener('input', ()=>{ saveFromUI(); draw(); renderResults(); renderSummary(); renderAdvancedResults(); }));
+      window.addEventListener('resize', ()=>{ resizeCanvas(); });
+      if($('applyAllBtn')) $('applyAllBtn').addEventListener('click', ()=>{ saveFromUI(); const s=rooms[current]; for(let i=0;i<rooms.length;i++){ if(i===current) continue; Object.assign(rooms[i], {lampId:s.lampId, powerMethod:s.powerMethod, wpm2:s.wpm2, hours:s.hours, price:s.price, gpw:s.gpw, gpm2:s.gpm2, ach:s.ach, eff_umolJ:s.eff_umolJ, mount_h:s.mount_h, pf:s.pf, voltage:s.voltage, ppfd_target:s.ppfd_target, heat_factor:s.heat_factor, extract_loss:s.extract_loss, derate:s.derate, co2_enabled:s.co2_enabled, co2_target:s.co2_target, co2_ambient:s.co2_ambient, co2_bottle_kg:s.co2_bottle_kg, co2_extract_pct:s.co2_extract_pct, ac_cop:s.ac_cop, prod_desired_g:s.prod_desired_g, extrasSafetyPct:s.extrasSafetyPct, extras:JSON.parse(JSON.stringify(s.extras)) }); } renderResults(); renderSummary(); });
+      if($('lampId')) $('lampId').addEventListener('change', ()=>{ const r=rooms[current]; r.lampId=getSel('lampId',r.lampId); const L=lampById(r.lampId); const s=suggestWpm2(L); if(has('wpm2')){ setVal('wpm2', s); r.wpm2=s; } if(has('gpw')){ setVal('gpw', L.gpw_default); r.gpw=L.gpw_default; } if(has('eff_umolJ')){ setVal('eff_umolJ', L.eff_umolJ||r.eff_umolJ); r.eff_umolJ=L.eff_umolJ||r.eff_umolJ; setVal('mount_h', L.mount_h||r.mount_h); r.mount_h=L.mount_h||r.mount_h; } draw(); renderResults(); renderSummary(); });
+      if($('roomCount')) $('roomCount').addEventListener('change', (e)=>{ saveFromUI(); const n=Math.max(1,Math.min(8, parseInt(e.target.value,10)||1)); if(n>rooms.length){ for(let i=0;i<n-rooms.length;i++) rooms.push(defaultRoom()); } else if(n<rooms.length){ rooms.length=n; } roomCount=n; if(current>=roomCount) current=roomCount-1; renderTabs(); loadToUI(); draw(); renderResults(); renderSummary(); renderActiveHint(); });
+      if($('advancedMode')) $('advancedMode').addEventListener('change', (e)=>{ document.body.classList.toggle('advanced-on', e.target.checked); });
+      if($('extrasBtn')) $('extrasBtn').addEventListener('click', ()=>{ openExtras(); });
+      if($('closeExtras')) $('closeExtras').addEventListener('click', ()=>{ const modal=$('extrasModal'); if(modal) modal.classList.remove('open'); });
+      document.querySelectorAll('#extrasModal input').forEach(el=> el.addEventListener('input', updateExtrasPreview));
+      if($('saveExtras')) $('saveExtras').addEventListener('click', saveExtrasFromModal);
+    }
+
+    function renderAdvancedResults(){ const m=calc(rooms[current]); const el=$('advancedResults'); if(!el) return; el.innerHTML = ''+
+      kv('PPF (µmol/s)', fmt(m.ppf_umol_s,0))+
+      kv('PPFD (µmol/m²/s)', fmt(m.ppfd,0))+
+      kv('DLI (mol/m²/día)', fmt(m.dli,2))+
+      kv('Carga térmica', fmt(m.heat_W,0)+' W')+
+      kv('A/A necesario', fmt(m.frig_h,0)+' frig/h · '+fmt(m.kw_frio,2)+' kWf')+
+      kv('A (total sala)', fmt(m.amps_total,2)+' A');
+    }
+
+    // ===== Self-tests (básicos) =====
+    function runSelfTests(){ const badge=$('selftestBadge'); const ok=(msg)=>{ if(badge) badge.textContent='Self‑tests: OK'; console.info('✅', msg); }; const fail=(err)=>{ if(badge){ badge.textContent='Self‑tests: FAIL'; badge.style.color='#ff9'; } console.error('❌ Self‑test', err); };
+      try{
+        saveFromUI(); loadToUI();
+        draw(); renderResults(); renderSummary(); renderAdvancedResults();
+        if(has('lampId')){ setVal('lampId', LAMPS[1].id); $('lampId').dispatchEvent(new Event('change')); }
+        openExtras(); updateExtrasPreview(); const modal=$('extrasModal'); if(modal) modal.classList.remove('open');
+        if(has('roomCount')){ setVal('roomCount','2'); $('roomCount').dispatchEvent(new Event('change')); setVal('roomCount','1'); $('roomCount').dispatchEvent(new Event('change')); }
+        ok('All basic tests passed');
+      }catch(e){ fail(e); }
+    }
+
+    function init(){ if(booted) return; booted=true; renderLampOptions(); renderTabs(); loadToUI(); hookInputs(); draw(); renderResults(); renderSummary(); renderActiveHint(); document.body.classList.remove('advanced-on'); if(has('advancedMode')) $('advancedMode').checked=false; runSelfTests(); }
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
+  </script>
+</body>
+</html>
